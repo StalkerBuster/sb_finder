@@ -8,6 +8,7 @@ setup(name='sb_finder',
       author='ulif and datenzwerg.in',
       author_email='stalkerbuster@gnufix.de',
       url='https://github.com/stalkerbuster/sb_finder',
-      package_dir = {'': 'src'},
-      packages=['sb_finder'],
+      package_dir={'': 'src'},
+      py_modules=['sb_finder', ],
      )
+
