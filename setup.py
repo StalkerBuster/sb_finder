@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='sb_finder',
-      version='0.1dev0',
+      version='0.1.dev0',
       description='StalkerBuster finder',
       author='ulif and datenzwerg.in',
       author_email='stalkerbuster@gnufix.de',
