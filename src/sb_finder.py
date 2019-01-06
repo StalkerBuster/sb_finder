@@ -17,6 +17,6 @@ from pcapy import open_offline
 
 
 def matches_filter(pkt, filt):
-    if filt.filter(pkt) == -1:
+    if filt.filter(pkt) != 0:
         return True
     return False
