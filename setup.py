@@ -10,5 +10,4 @@ setup(name='sb_finder',
       url='https://github.com/stalkerbuster/sb_finder',
       package_dir={'': 'src'},
       py_modules=['sb_finder', ],
-     )
-
+      )
