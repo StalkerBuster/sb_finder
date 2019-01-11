@@ -15,6 +15,13 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+class Filter(object):
+    def __init__(self, flt_expr, optimize=False, netmask=1):
+        self.flt_expr = flt_expr
+        self.optimize = optimize
+        self.netmask = netmask
+
+
 def matches_filter(pkt, filt):
     if filt.filter(pkt) != 0:
         return True

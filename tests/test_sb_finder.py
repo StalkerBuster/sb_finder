@@ -1,6 +1,6 @@
 import os
 import pcapy
-from sb_finder import matches_filter
+from sb_finder import matches_filter, Filter
 
 
 def test_matches_filter_detects_ip_packets():
@@ -21,3 +21,11 @@ def test_matches_filter_detects_dst():
     header, data = src.next()
     bpf = pcapy.compile(src.datalink(), 1350, "dst 4.3.2.1", 0, 1)
     assert matches_filter(data, bpf) is True
+
+
+def test_filter_constructor():
+    # we can construct filters
+    f = Filter("dst 4.3.2.1")
+    assert f.flt_expr == "dst 4.3.2.1"
+    assert f.optimize is False
+    assert f.netmask == 1
