@@ -22,6 +22,19 @@ class Filter(object):
         self.netmask = netmask
 
 
+class Detector(Filter):
+    """A detector is a list of packet filters.
+
+    It is meant to represent some anomaly or event in a network stream, which
+    can be detected by the filters applied.
+    """
+    def __init__(self, filters=(), severity=0, tags=[], message=None):
+        self.filters = filters
+        self.severity = severity
+        self.tags = tags
+        self.message = message
+
+
 def matches_filter(pkt, filt):
     if filt.filter(pkt) != 0:
         return True

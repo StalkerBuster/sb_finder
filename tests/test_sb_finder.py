@@ -1,6 +1,6 @@
 import os
 import pcapy
-from sb_finder import matches_filter, Filter
+from sb_finder import matches_filter, Filter, Detector
 
 
 def test_matches_filter_detects_ip_packets():
@@ -29,3 +29,12 @@ def test_filter_constructor():
     assert f.flt_expr == "dst 4.3.2.1"
     assert f.optimize is False
     assert f.netmask == 1
+
+
+def test_detector_constructor():
+    # we can construct alarm detectors
+    d = Detector()
+    assert d.filters == ()
+    assert d.severity == 0
+    assert d.tags == []
+    assert d.message is None
