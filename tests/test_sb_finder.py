@@ -2,6 +2,8 @@ import os
 import pcapy
 from sb_finder import matches_filter, Filter, Detector
 
+SAMPLES_PATH=os.path.abspath(os.path.dirname(__file__))
+
 
 def test_matches_filter_detects_ip_packets():
     # we can detect certain simple packets.
@@ -38,3 +40,10 @@ def test_detector_constructor():
     assert d.severity == 0
     assert d.tags == []
     assert d.message is None
+
+
+def test_detector_finds_filter_matches():
+    # we can get a list of filters matching a file
+    d = Detector((Filter("dst 4.3.2.1"), ))
+    path = os.path.join(SAMPLES_PATH, "single_ip.pcap")
+    assert d.matching_filters(path) != []
