@@ -13,6 +13,7 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import pcapy
 
 
 class Filter(object):
@@ -33,6 +34,20 @@ class Detector(Filter):
         self.severity = severity
         self.tags = tags
         self.message = message
+
+    def matching_filters(self, path):
+        """Return the filters matching data in `path`.
+        """
+        src = pcapy.open_offline(path)
+        self.bpf_list = [pcapy.compile(src.datalink(), 1350, x.flt_expr, 0, 1)
+                for x in self.filters]
+        src.loop(-1, self._callback)
+        return self.bpf_list
+
+    def _callback(self, header, data):
+        new_list = [x for x in self.bpf_list
+                if x.filter(data) != 0]
+        self.bpf_list = new_list
 
 
 def matches_filter(pkt, filt):
