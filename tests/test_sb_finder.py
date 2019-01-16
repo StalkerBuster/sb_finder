@@ -2,7 +2,7 @@ import os
 import pcapy
 from sb_finder import matches_filter, Filter, Detector
 
-SAMPLES_PATH=os.path.abspath(os.path.dirname(__file__))
+SAMPLES_PATH = os.path.abspath(os.path.dirname(__file__))
 
 
 def test_matches_filter_detects_ip_packets():
