@@ -39,14 +39,16 @@ class Detector(Filter):
         """Return the filters matching data in `path`.
         """
         src = pcapy.open_offline(path)
-        self.bpf_list = [pcapy.compile(src.datalink(), 65536, x.flt_expr, 0, 0)
-                for x in self.filters]
+        self.bpf_list = [
+            pcapy.compile(src.datalink(), 65536, x.flt_expr, 0, 0)
+            for x in self.filters]
         src.loop(-1, self._callback)
         return self.bpf_list
 
     def _callback(self, header, data):
-        new_list = [x for x in self.bpf_list
-                if x.filter(data) != 0]
+        new_list = [
+            x for x in self.bpf_list
+            if x.filter(data) != 0]
         self.bpf_list = new_list
 
 
