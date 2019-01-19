@@ -45,3 +45,4 @@ def test_detector_finds_filter_matches():
     d = Detector((Filter("dst 4.3.2.1"), ))
     path = os.path.join(SAMPLES_PATH, "single_ip.pcap")
     assert d.matching_filters(path) != []
+    assert len(d.matching_filters(path)) == 1
