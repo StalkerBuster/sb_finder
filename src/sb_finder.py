@@ -13,7 +13,8 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import pcapy
+import scapy
+from scapy.all import sniff
 
 
 class Filter(object):
@@ -38,18 +39,13 @@ class Detector(Filter):
     def matching_filters(self, path):
         """Return the filters matching data in `path`.
         """
-        src = pcapy.open_offline(path)
-        self.bpf_list = [
-            pcapy.compile(src.datalink(), 65536, x.flt_expr, 0, 0)
-            for x in self.filters]
-        src.loop(-1, self._callback)
-        return self.bpf_list
-
-    def _callback(self, header, data):
-        new_list = [
-            x for x in self.bpf_list
-            if x.filter(data) != 0]
-        self.bpf_list = new_list
+        result = []
+        for flt in self.filters:
+            pkts = sniff(store=False, offline=path, filter=flt.flt_expr)
+            result.append(pkts)
+            if len(pkts):
+                result.append(flt)
+        return result
 
 
 def matches_filter(pkt, filt):

@@ -18,4 +18,4 @@ The candidates:
 - [pyshark](https://pypi.org/project/pyshark/)
 - [pycapfile](https://pypi.org/project/pypcapfile/)
 
-Currently evaluated: *pcapy*
+Currently evaluated: *scapy*
