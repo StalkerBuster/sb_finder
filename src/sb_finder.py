@@ -49,6 +49,6 @@ class Detector(Filter):
 
 
 def matches_filter(pkt, filt):
-    if filt.filter(pkt) != 0:
+    if len(sniff(offline=pkt, filter=filt)):
         return True
     return False
