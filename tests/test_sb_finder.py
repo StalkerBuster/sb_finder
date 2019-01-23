@@ -7,7 +7,7 @@ SAMPLES_PATH = os.path.abspath(os.path.dirname(__file__))
 
 def test_matches_filter_detects_ip_packets():
     # we can detect certain simple packets.
-    path =  os.path.join(SAMPLES_PATH, 'single_ip.pcap')
+    path = os.path.join(SAMPLES_PATH, 'single_ip.pcap')
     data = sniff(offline=path)[-1]
     assert matches_filter(data, "ip") is True
     assert matches_filter(data, "tcp") is False
