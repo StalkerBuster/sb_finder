@@ -40,7 +40,7 @@ class Detector(Filter):
         """
         result = []
         for flt in self.filters:
-            pkts = sniff(store=False, offline=path, filter=flt.flt_expr)
+            pkts = sniff(offline=path, filter=flt.flt_expr)
             if len(pkts):
                 result.append(flt)
         return result
