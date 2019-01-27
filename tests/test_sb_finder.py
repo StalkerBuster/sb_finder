@@ -40,7 +40,10 @@ def test_detector_constructor():
 
 def test_detector_finds_filter_matches():
     # we can get a list of filters matching a file
-    d = Detector((Filter("dst 4.3.2.1"), ))
+    f1 = Filter("dst 4.3.2.1")
+    f2 = Filter("dst 8.8.8.8")
+    d = Detector((f1, f2))
     path = os.path.join(SAMPLES_PATH, "single_ip.pcap")
-    assert d.matching_filters(path) != []
-    assert len(d.matching_filters(path)) == 1
+    result = d.matching_filters(path)
+    assert f1 in result
+    assert f2 not in result
