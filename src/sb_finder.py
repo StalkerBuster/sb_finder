@@ -13,7 +13,21 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import argparse
 from scapy.all import sniff
+
+
+def handle_options(args):
+    """Handle commandline options.
+    """
+    parser = argparse.ArgumentParser(
+       description="Find patterns in pcap files.")
+    parser.add_argument(
+        '-f', '--file', metavar='FILE', default=None, required=True,
+        help="Input PCAP file to read from. `-' will read from stdin.",
+        )
+    args = parser.parse_args(args)
+    return args
 
 
 class Filter(object):
@@ -50,3 +64,11 @@ def matches_filter(pkt, filt):
     if len(sniff(offline=pkt, filter=filt)):
         return True
     return False
+
+
+def main(args=None):
+    """Main programme.
+    """
+    if args is not None:
+        options = handle_options(args)
+    pass
