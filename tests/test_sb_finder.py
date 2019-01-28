@@ -1,6 +1,6 @@
 import os
 from scapy.all import sniff
-from sb_finder import matches_filter, Filter, Detector
+from sb_finder import matches_filter, Filter, Detector, main
 
 SAMPLES_PATH = os.path.abspath(os.path.dirname(__file__))
 SAMPLE_IP_PATH = os.path.join(SAMPLES_PATH, 'single_ip.pcap')
@@ -46,3 +46,11 @@ def test_detector_finds_filter_matches():
     result = d.matching_filters(SAMPLE_IP_PATH)
     assert f1 in result
     assert f2 not in result
+
+
+def test_main_requires_file_or_iface(capsys):
+    # without any args we get a hint what is missing
+    main([])
+    out, err = capsys.readouterr()
+    assert "file or interface required." in err
+    assert out == ""
