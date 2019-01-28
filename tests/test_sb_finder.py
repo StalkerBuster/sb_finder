@@ -3,20 +3,20 @@ from scapy.all import sniff
 from sb_finder import matches_filter, Filter, Detector
 
 SAMPLES_PATH = os.path.abspath(os.path.dirname(__file__))
+SAMPLE_IP_PATH = os.path.join(SAMPLES_PATH, 'single_ip.pcap')
+SAMPLE_ICMP_PATH = os.path.join(SAMPLES_PATH, 'single_icmp.pcap')
 
 
 def test_matches_filter_detects_ip_packets():
     # we can detect certain simple packets.
-    path = os.path.join(SAMPLES_PATH, 'single_ip.pcap')
-    data = sniff(offline=path)[-1]
+    data = sniff(offline=SAMPLE_IP_PATH)[-1]
     assert matches_filter(data, "ip") is True
     assert matches_filter(data, "tcp") is False
 
 
 def notest_matches_filter_detects_dst():
     # we can filter by destination ip
-    path = os.path.join(SAMPLES_PATH, 'single_ip.pcap')
-    data = sniff(offline=path)[-1]
+    data = sniff(offline=SAMPLE_IP_PATH)[-1]
     assert matches_filter(data, "dst 4.3.2.1") is True
     assert matches_filter(data, "dst 1.2.3.4") is False
 
@@ -43,7 +43,6 @@ def test_detector_finds_filter_matches():
     f1 = Filter("dst 4.3.2.1")
     f2 = Filter("dst 8.8.8.8")
     d = Detector((f1, f2))
-    path = os.path.join(SAMPLES_PATH, "single_ip.pcap")
-    result = d.matching_filters(path)
+    result = d.matching_filters(SAMPLE_IP_PATH)
     assert f1 in result
     assert f2 not in result
