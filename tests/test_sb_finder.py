@@ -1,5 +1,6 @@
 import os
 import pytest
+import sys
 from scapy.all import sniff
 from sb_finder import matches_filter, Filter, Detector, main, handle_options
 
@@ -65,5 +66,8 @@ def test_main_requires_file(capsys):
     with pytest.raises(SystemExit) as exc_info:
         main([])
     out, err = capsys.readouterr()
-    assert "the following arguments are required: -f" in err
+    if sys.version_info < (3,0):
+        assert "argument -f/--file is required" in err
+    else:
+        assert "the following arguments are required: -f" in err
     assert out == ""
