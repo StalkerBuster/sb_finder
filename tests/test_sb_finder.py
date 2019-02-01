@@ -66,8 +66,9 @@ def test_main_requires_file(capsys):
     with pytest.raises(SystemExit) as exc_info:
         main([])
     out, err = capsys.readouterr()
-    if sys.version_info < (3,0):
+    if sys.version_info < (3, 0):
         assert "argument -f/--file is required" in err
     else:
         assert "the following arguments are required: -f" in err
     assert out == ""
+    assert exc_info.value.code == 2
