@@ -14,6 +14,7 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import argparse
+import sys
 from scapy.all import sniff
 
 
@@ -69,6 +70,7 @@ def matches_filter(pkt, filt):
 def main(args=None):
     """Main programme.
     """
-    if args is not None:
-        options = handle_options(args)
-    pass
+    if args is None:
+        args = sys.args[1:]
+    options = handle_options(args)
+
