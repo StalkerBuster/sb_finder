@@ -50,12 +50,12 @@ def test_detector_finds_filter_matches():
     assert f2 not in result
 
 
-class HandleOptionsTests(object):
+class TestHandleOptions(object):
 
     def test_handle_options(self, capsys):
         # we can get help
         with pytest.raises(SystemExit) as exc_info:
-            handle_options(['--help'])
+            handle_options(["p", '--help'])
         out, err = capsys.readouterr()
         assert exc_info.value.code == 0
         assert 'usage: ' in out
