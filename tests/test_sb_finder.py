@@ -60,6 +60,13 @@ class TestHandleOptions(object):
         assert exc_info.value.code == 0
         assert 'usage: ' in out
 
+    def test_filename(self):
+        # we can get any passed in filename
+        args = handle_options(["-f", "somepath"])
+        assert args.file == "somepath"
+        args = handle_options(["--file", "otherpath"])
+        assert args.file == "otherpath"
+
 
 def test_main_requires_file(capsys):
     # a file is required to run main
