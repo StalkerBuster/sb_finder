@@ -71,6 +71,6 @@ def main(args=None):
     """Main programme.
     """
     if args is None:
-        args = sys.args[1:]
+        args = sys.argv[1:]
     options = handle_options(args)
 
