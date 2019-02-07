@@ -79,3 +79,11 @@ def test_main_requires_file(capsys):
         assert "the following arguments are required: -f" in err
     assert out == ""
     assert exc_info.value.code == 2
+
+
+def test_main_argv(argv_handler):
+    # main() handles sys.argv if nothing is provided
+    sys.argv = ['sb_finder', '--help']
+    with pytest.raises(SystemExit) as exc_info:
+        main()
+    assert exc_info.value.code == 0
