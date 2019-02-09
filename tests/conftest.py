@@ -1,6 +1,7 @@
 import pytest
 import sys
 
+
 @pytest.fixture(scope="function")
 def argv_handler(request):
     """This fixture restores sys.argv and sys.stdin after tests.
