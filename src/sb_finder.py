@@ -73,3 +73,4 @@ def main(args=None):
     if args is None:
         args = sys.argv[1:]
     options = handle_options(args)
+    assert os.path.exists(options.file)
