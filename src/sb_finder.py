@@ -61,6 +61,16 @@ class Detector(Filter):
         return result
 
 
+class SampleMaker(object):
+    """Create samples for stalkerbuster.
+    """
+    def start(self):
+        pass
+
+    def stop(self):
+        pass
+
+
 def matches_filter(pkt, filt):
     if len(sniff(offline=pkt, filter=filt)):
         return True
