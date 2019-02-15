@@ -9,5 +9,5 @@ setup(name='sb_finder',
       author_email='stalkerbuster@gnufix.de',
       url='https://github.com/stalkerbuster/sb_finder',
       package_dir={'': 'src'},
-      py_modules=['sb_finder', ],
+      py_modules=['sampler', 'sb_finder', ],
       )
