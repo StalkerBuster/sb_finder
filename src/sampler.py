@@ -13,13 +13,25 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from scapy.all import sniff, wrpcap
 
 
 class SampleMaker(object):
     """Create samples for stalkerbuster.
     """
-    def start(self, device, outfile):
-        pass
+    def __init__(self, dev=None, outpath='sample.pcapng'):
+        self.dev = dev
+        self.outpath = outpath
+        self.sampling = False
+
+    def update_outpath(self, pkts):
+        """Write `pkts` into pcap file,
+        """
+        wrpcap(self.outpath, pkts, append=True)
+
+    def start(self):
+        assert not self.sampling  # only one recording at a time
+        sniff()
 
     def stop(self):
         pass
