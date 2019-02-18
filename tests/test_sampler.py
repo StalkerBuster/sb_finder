@@ -12,10 +12,10 @@ class TestSampleMaker(object):
         assert sm.dev is None
         assert sm.outpath == "sample.pcapng"
 
-    def test_update_outpath(self, tmpdir):
+    def test_update_outfile(self, tmpdir):
         # we can append packets to an outfile
         sample_path = tmpdir.join('test-update.pcap')
         sm = SampleMaker(outpath=str(sample_path))
         pkts = (IP(), IP())
-        sm.update_outpath(pkts)
+        sm.update_outfile(pkts)
         assert sample_path.isfile()

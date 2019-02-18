@@ -24,8 +24,8 @@ class SampleMaker(object):
         self.outpath = outpath
         self.sampling = False
 
-    def update_outpath(self, pkts):
-        """Write `pkts` into pcap file,
+    def update_outfile(self, pkts):
+        """Append `pkts` into pcap file,
         """
         wrpcap(self.outpath, pkts, append=True)
 
