@@ -1,4 +1,4 @@
-from scapy.all import IP
+from scapy.all import IP, sniff
 from sampler import SampleMaker
 
 
@@ -19,3 +19,6 @@ class TestSampleMaker(object):
         pkts = (IP(), IP())
         sm.update_outfile(pkts)
         assert sample_path.isfile()
+        sm.update_outfile(IP())
+        read = sniff(offline=str(sample_path))
+        assert len(read) == 3
