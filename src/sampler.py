@@ -31,7 +31,8 @@ class SampleMaker(object):
 
     def start(self):
         assert not self.sampling  # only one recording at a time
-        sniff()
+        self.sampling = True
+        sniff(iface=self.dev, prn=self.update_outfile)
 
     def stop(self):
         pass
