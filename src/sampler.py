@@ -30,9 +30,13 @@ class SampleMaker(object):
         wrpcap(self.outpath, pkts, append=True)
 
     def start(self):
+        """Start sampling.
+        """
         assert not self.sampling  # only one recording at a time
         self.sampling = True
-        sniff(iface=self.dev, prn=self.update_outfile)
+        sniff(
+            iface=self.dev, prn=self.update_outfile,
+            stop_filter=lambda x: not self.sampling)
 
     def stop(self):
-        pass
+        self.sampling = False
