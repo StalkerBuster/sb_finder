@@ -13,10 +13,26 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import re
+import subprocess
+from wifi import Cell, Scheme
+
+
+def get_avail_netdevs():
+    """Get a list of all net devices.
+
+    We run `ifconfig` and parse the output.
+    """
+    lines = subprocess.check_output("ifconfig").decode("utf-8")
+    devnames = re.findall("^([a-zA-Z0-9_]+)", lines, re.M)
+    return devnames
+
+
 def get_avail_wlans():
     """Get available wireless networks (SSIDs)
     """
-    return []
+    nets = Cell.all()
+    return [x for x in nets]
 
 
 def get_current_clan():
