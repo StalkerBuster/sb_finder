@@ -15,7 +15,9 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import re
 import subprocess
+import wifi
 from wifi import Cell, Scheme
+
 
 
 def get_avail_netdevs():
@@ -31,8 +33,13 @@ def get_avail_netdevs():
 def get_avail_wlans():
     """Get available wireless networks (SSIDs)
     """
-    nets = Cell.all()
-    return [x for x in nets]
+    nets = []
+    for devname in get_avail_netdevs():
+        try:
+            nets.extend(Cell.all(devname))
+        except wifi.exceptions.InterfaceError:
+            pass
+    return list(set([x.ssid for x in nets]))
 
 
 def get_current_clan():
