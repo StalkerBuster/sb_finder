@@ -13,3 +13,10 @@ def argv_handler(request):
         sys.argv = _argv_stored
         sys.stdin = _stdin_stored
     request.addfinalizer(teardown)
+
+
+@pytest.fixture(scope="function")
+def path_dir(request, monkeypatch, tmpdir):
+    new_path = [str(tmpdir)] + sys.path
+    monkeypatch.setattr(sys, "path", new_path)
+    return str(tmpdir)
