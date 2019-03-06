@@ -1,3 +1,4 @@
+import os
 import pytest
 import sys
 
@@ -17,6 +18,24 @@ def argv_handler(request):
 
 @pytest.fixture(scope="function")
 def path_dir(request, monkeypatch, tmpdir):
+    """A fixture extending the $PATH.
+
+    Returns the newly generated path. It will be torn down after any testing.
+    """
     new_path = [str(tmpdir)] + sys.path
     monkeypatch.setattr(sys, "path", new_path)
-    return str(tmpdir)
+    return tmpdir
+
+
+@pytest.fixture(scope="function")
+def fake_ifconfig(path_dir):
+    """Fixture to install fake ifconfig in new path.
+
+    The path is prepended to $PATH, so that the newly installed version of
+    `ifconfig` should be called instead of the system ones.
+    """
+    src_path = os.path.join(os.path.dirname(__file__), 'fake-ifconfig.sh')
+    script_path = path_dir.join("ifconfig")
+    script_path.write(open(src_path, "r").read())
+    os.chmod(str(script_path), 0o744)
+    return script_path
