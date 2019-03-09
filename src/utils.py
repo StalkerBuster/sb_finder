@@ -16,8 +16,7 @@
 import re
 import subprocess
 import wifi
-from wifi import Cell, Scheme
-
+from wifi import Cell
 
 
 def get_avail_netdevs():
