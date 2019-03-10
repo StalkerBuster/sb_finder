@@ -17,15 +17,13 @@ def argv_handler(request):
 
 
 @pytest.fixture(scope="function")
-def path_dir(request, monkeypatch, tmpdir):
+def path_dir(monkeypatch, tmpdir):
     """A fixture extending the $PATH.
 
     Returns the newly generated path. It will be torn down after any testing.
     """
-    sys_path = [str(tmpdir)] + sys.path
-    shell_path = ":".join(sys_path) + ":" + os.getenv("PATH")
-    monkeypatch.setattr(sys, "path", sys_path)
-    monkeypatch.setenv("PATH", shell_path)
+    path = "%s:%s" % (tmpdir, os.getenv("PATH"))
+    monkeypatch.setenv("PATH", path)
     return tmpdir
 
 
