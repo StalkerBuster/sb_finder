@@ -20,7 +20,7 @@ from wifi import Cell
 
 
 def get_avail_netdevs():
-    """Get a list of all net devices.
+    """Get a list of all network devices.
 
     We run `ifconfig` and parse the output.
     """
@@ -41,7 +41,7 @@ def get_avail_wlans():
     return list(set([x.ssid for x in nets]))
 
 
-def get_current_clan():
+def get_current_wlan():
     pass
 
 
