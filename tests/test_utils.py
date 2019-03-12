@@ -1,6 +1,6 @@
 import os
 import subprocess
-from utils import get_avail_netdevs, get_avail_wlans
+from utils import get_avail_netdevs
 
 
 def test_get_avail_netdevs():
