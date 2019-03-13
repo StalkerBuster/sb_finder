@@ -1,6 +1,6 @@
 import os
 import subprocess
-from utils import get_avail_netdevs
+from utils import get_avail_netdevs, get_avail_wlans
 
 
 def test_get_avail_netdevs():
@@ -23,3 +23,10 @@ def test_fake_ifconfig(fake_ifconfig):
     lines = subprocess.check_output("ifconfig").decode("utf-8")
     assert os.path.exists(str(fake_ifconfig))
     assert "foobar0:" in lines
+
+
+def test_get_avail_wlans():
+    # we can get a list of wlans
+    # FIXME: the list contents is not tested
+    nets = get_avail_wlans()
+    assert type(nets) is list
