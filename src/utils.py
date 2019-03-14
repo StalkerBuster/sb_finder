@@ -42,7 +42,8 @@ def get_avail_wlans():
 
 
 def get_current_wlan():
-    pass
+    lines = subprocess.check_output(["iwgetid", "-r"]).decode("utf-8")
+    return lines.split('\n')[0] or None
 
 
 def select_wlan(ssid, password):
