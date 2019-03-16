@@ -42,8 +42,16 @@ def get_avail_wlans():
 
 
 def get_current_wlan():
-    lines = subprocess.check_output(["iwgetid", "-r"]).decode("utf-8")
-    return lines.split('\n')[0] or None
+    """Get the current SSID
+
+    as a string or `None` if no connection is active.
+    """
+    try:
+        lines = subprocess.check_output(["iwgetid", "-r"]).decode("utf-8")
+    except subprocess.CalledProcessError:
+        # status 255 can mean: no active connection
+        return None
+    return lines.split('\n')[0]
 
 
 def select_wlan(ssid, password):
