@@ -1,6 +1,6 @@
 import os
 import subprocess
-from utils import get_avail_netdevs, get_avail_wlans
+from utils import get_avail_netdevs, get_avail_wlans, get_current_wlan
 
 
 def test_get_avail_netdevs():
@@ -30,3 +30,10 @@ def test_get_avail_wlans():
     # FIXME: the list contents is not tested
     nets = get_avail_wlans()
     assert type(nets) is list
+
+
+def test_get_current_wlan(fake_iwgetid):
+    # we can determine the current wlan
+    assert get_current_wlan() is None
+    fake_iwgetid("MY NETWORK")
+    assert get_current_wlan() == "MY NETWORK"
