@@ -54,8 +54,10 @@ def get_current_wlan():
     return lines.split('\n')[0]
 
 
-def select_wlan(ssid, password):
-    pass
+def select_wlan(ssid, password, iface=None):
+    cell = list(wifi.Cell.all(iface))[0]
+    scheme = wifi.Scheme.for_cell(iface, ssid, cell, password)
+    scheme.activate()
 
 
 def unselect_wlan():
