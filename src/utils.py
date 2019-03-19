@@ -62,3 +62,13 @@ def select_wlan(ssid, password, iface=None):
 
 def unselect_wlan():
     pass
+
+
+class NetworkManager(object):
+
+    @classmethod
+    def get_avail_wlans(cls):
+        lines = subprocess.check_output(
+                ["nmcli", "-t", "dev", "wifi"]).decode("utf-8")
+        ssids = re.findall("^ \:([^\:]*)\:.+", lines, re.M)
+        return ssids
