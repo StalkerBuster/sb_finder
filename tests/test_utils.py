@@ -1,6 +1,8 @@
 import os
 import subprocess
-from utils import get_avail_netdevs, get_avail_wlans, get_current_wlan
+from utils import (
+    get_avail_netdevs, get_avail_wlans, get_current_wlan,
+    NetworkManager)
 
 
 def test_get_avail_netdevs():
@@ -37,3 +39,12 @@ def test_get_current_wlan(fake_iwgetid):
     assert get_current_wlan() is None
     fake_iwgetid("MY NETWORK")
     assert get_current_wlan() == "MY NETWORK"
+
+
+class TestNetworkManager(object):
+    # tests for utils.NetworkManager instances
+
+    def test_get_avail_wlans(self):
+        # we can get a list of available wifi networks
+        nets = NetworkManager().get_avail_wlans()
+        assert type(nets) is list
