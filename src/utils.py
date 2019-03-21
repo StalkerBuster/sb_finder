@@ -66,6 +66,8 @@ def unselect_wlan():
 
 class NetworkManager(object):
 
+    get_current_wlan = get_current_wlan
+
     @classmethod
     def get_avail_wlans(cls):
         lines = subprocess.check_output(
