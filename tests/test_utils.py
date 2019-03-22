@@ -48,3 +48,9 @@ class TestNetworkManager(object):
         # we can get a list of available wifi networks
         nets = NetworkManager().get_avail_wlans()
         assert type(nets) is list
+
+    def test_get_current_wlan(self, fake_iwgetid):
+        # we can determine the current wlan
+        assert NetworkManager.get_current_wlan() is None
+        fake_iwgetid("SOME NETWORK")
+        assert NetworkManager.get_current_wlan() == "SOME NETWORK"
