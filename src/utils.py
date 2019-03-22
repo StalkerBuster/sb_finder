@@ -72,5 +72,5 @@ class NetworkManager(object):
     def get_avail_wlans(cls):
         lines = subprocess.check_output(
                 ["nmcli", "-t", "dev", "wifi"]).decode("utf-8")
-        ssids = re.findall("^ \:([^\:]*)\:.+", lines, re.M)
+        ssids = re.findall("^ :([^:]*):.+", lines, re.M)
         return ssids
