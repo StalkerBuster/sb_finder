@@ -69,6 +69,16 @@ class NetworkManager(object):
     get_current_wlan = staticmethod(get_current_wlan)
 
     @classmethod
+    def get_connections(cls):
+        """Get UUIDs of all locally defined NM connections
+        """
+        lines = subprocess.check_output(
+                ["nmcli", "--fields", "type,uuid", "con", "show"]
+                ).decode("utf-8")
+        tuples = [line.split() for line in lines.split("\n")]
+        return set([x[1] for x in tuples if "wifi" in x])
+
+    @classmethod
     def get_avail_wlans(cls):
         lines = subprocess.check_output(
                 ["nmcli", "-t", "dev", "wifi"]).decode("utf-8")
