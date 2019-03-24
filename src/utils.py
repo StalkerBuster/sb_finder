@@ -74,3 +74,8 @@ class NetworkManager(object):
                 ["nmcli", "-t", "dev", "wifi"]).decode("utf-8")
         ssids = re.findall("^ :([^:]*):.+", lines, re.M)
         return ssids
+
+    @classmethod
+    def select_wlan(ssid, password, iface=None):
+        lines = subprocess.check_output(
+                ["nmcli", "con", "up", ssid]).decode("utf-8")
