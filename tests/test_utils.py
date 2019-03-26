@@ -54,3 +54,8 @@ class TestNetworkManager(object):
         assert NetworkManager.get_current_wlan() is None
         fake_iwgetid("SOME NETWORK")
         assert NetworkManager.get_current_wlan() == "SOME NETWORK"
+
+    def test_get_connections(self):
+        # we can get a list of all wifi connections
+        uuids = NetworkManager.get_connections()
+        assert type(uuids) is list
