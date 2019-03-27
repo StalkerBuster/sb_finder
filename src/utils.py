@@ -76,7 +76,7 @@ class NetworkManager(object):
                 ["nmcli", "--fields", "type,uuid", "con", "show"]
                 ).decode("utf-8")
         tuples = [line.split() for line in lines.split("\n")]
-        return set([x[1] for x in tuples if "wifi" in x])
+        return list(set([x[1] for x in tuples if "wifi" in x]))
 
     @classmethod
     def get_avail_wlans(cls):
