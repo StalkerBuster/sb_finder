@@ -57,5 +57,6 @@ class TestNetworkManager(object):
 
     def test_get_connections(self):
         # we can get a list of all wifi connections
+        # FIXME: the list contents are not tested
         uuids = NetworkManager.get_connections()
         assert type(uuids) is list
