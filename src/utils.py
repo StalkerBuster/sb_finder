@@ -73,10 +73,10 @@ class NetworkManager(object):
         """Get UUIDs of all locally defined NM connections
         """
         lines = subprocess.check_output(
-                ["nmcli", "--fields", "type,uuid", "con", "show"]
+                ["nmcli", "-t", "--fields", "type,uuid", "con", "show"]
                 ).decode("utf-8")
-        tuples = [line.split() for line in lines.split("\n")]
-        return list(set([x[1] for x in tuples if "wifi" in x]))
+        uuids = re.findall("^802-11-wireless:([^:]*)$", lines, re.M)
+        return uuids
 
     @classmethod
     def get_avail_wlans(cls):
