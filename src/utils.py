@@ -75,7 +75,7 @@ class NetworkManager(object):
         lines = subprocess.check_output(
                 ["nmcli", "-t", "--fields", "type,uuid", "con", "show"]
                 ).decode("utf-8")
-        uuids = re.findall("^802-11-wireless:([^:]*)$", lines, re.M)
+        uuids = re.findall("^802-11-wireless:([^:\n]*)$", lines, re.M)
         return uuids
 
     @classmethod
