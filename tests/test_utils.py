@@ -60,3 +60,4 @@ class TestNetworkManager(object):
         # FIXME: the list contents are not tested
         uuids = NetworkManager.get_connections()
         assert type(uuids) is list
+        assert not uuids[-1].endswith("\n")
