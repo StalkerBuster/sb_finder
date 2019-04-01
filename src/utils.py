@@ -79,6 +79,18 @@ class NetworkManager(object):
         return uuids
 
     @classmethod
+    def get_conn_by_ssid(cls, ssid):
+        result = []
+        for uuid in cls.get_connections():
+            uuid = uuid.strip()
+            lines = subprocess.check_output(
+                    ["nmcli", "-t", "-f", "802-11-wireless.ssid",
+                        "con", "show", uuid]).decode("utf-8").strip()
+            if lines.split(":")[-1] == ssid:
+                result += [uuid]
+        return result
+
+    @classmethod
     def get_avail_wlans(cls):
         lines = subprocess.check_output(
                 ["nmcli", "-t", "dev", "wifi"]).decode("utf-8")
