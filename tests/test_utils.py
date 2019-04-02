@@ -61,3 +61,11 @@ class TestNetworkManager(object):
         uuids = NetworkManager.get_connections()
         assert type(uuids) is list
         assert not uuids[-1].endswith("\n")
+
+    def test_get_conn_by_ssid(self):
+        # we can get a connection by SSID
+        # FIXME: takes load of time
+        # FIXME: the outcome is unreliable
+        uuids = NetworkManager.get_conn_by_ssid("notanexisingssid")
+        assert uuids == []
+        assert type(uuids) is list
